@@ -1,0 +1,7 @@
+[INFO] Server Fri Mar 25 00:43:10 2022: Booting up server...
+[INFO] DataSocket Fri Mar 25 00:43:10 2022: sicJsonType>::handle_value(Value&&, bool) [with Value = nlohmann::detail::value_t; BasicJsonType = nlohmann::basic_json<>]
+[INFO] DataSocket Fri Mar 25 00:43:10 2022: ) [with Value = nlohmann::detail::value_t; BasicJsonType = nlohmann::basic_json<>]
+[INFO] CommandSocket Fri Mar 25 00:43:10 2022: ::detail::iter_impl<BasicJsonType>::pointer nlohmann::detail::iter_impl<BasicJsonType>::operator->() const [with BasicJsonType = nlohmann::basic_json<>; nlohmann::detail::iter_impl<BasicJsonType>::pointer = nlohmann::basic_json<>*]
+[INFO] CommandSocket Fri Mar 25 00:43:10 2022: ter nlohmann::detail::iter_impl<BasicJsonType>::operator->() const [with BasicJsonType = nlohmann::basic_json<>; nlohmann::detail::iter_impl<BasicJsonType>::pointer = nlohmann::basic_json<>*]
+[INFO] Server Fri Mar 25 00:43:10 2022: Server booted up successfully.
+[INFO] Server Fri Mar 25 00:43:10 2022: Starting server...
