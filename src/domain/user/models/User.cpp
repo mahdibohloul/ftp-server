@@ -22,3 +22,15 @@ bool User::is_admin() const {
 int User::get_id() const {
     return this->id;
 }
+
+std::string User::get_username() const {
+    return this->username;
+}
+
+std::string User::get_password() const {
+    return this->password;
+}
+
+double User::get_download_capacity() const {
+    return this->download_capacity;
+}

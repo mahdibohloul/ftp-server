@@ -32,3 +32,11 @@ void Logger::error(const char *message) {
     log_file << msg;
     log_file.close();
 }
+
+void Logger::info(const string &message) {
+    info(&message[0]);
+}
+
+void Logger::error(const std::string &message) {
+    error(&message[0]);
+}

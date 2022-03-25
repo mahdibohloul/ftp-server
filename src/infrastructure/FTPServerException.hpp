@@ -15,6 +15,10 @@ public:
         return error_code;
     }
 
+    std::string to_string() const {
+        return std::to_string(error_code) + ": " + _message;
+    }
+
 private:
     int error_code;
     std::string _message;

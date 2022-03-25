@@ -52,3 +52,12 @@ std::list<User> UserRepository::get_all() {
     }
     return users;
 }
+
+User *UserRepository::find_by_username(const string &username) {
+    for (auto &user: store) {
+        if (user.second.get_username() == username) {
+            return &user.second;
+        }
+    }
+    return nullptr;
+}

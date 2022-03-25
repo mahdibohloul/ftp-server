@@ -18,7 +18,11 @@ public:
 
     void info(const char *message);
 
+    void info(const std::string &message);
+
     void error(const char *message);
+
+    void error(const std::string &message);
 
 private:
     std::string log_file_name;

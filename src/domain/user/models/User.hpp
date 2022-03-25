@@ -5,10 +5,20 @@
 
 class User {
 public:
-    User(std::string& username, std::string& password, bool admin, double download_capacity);
-    bool is_admin() const;
+    User(std::string &username, std::string &password, bool admin, double download_capacity);
+
+    [[nodiscard]] bool is_admin() const;
+
     void set_id(int _id);
-    int get_id() const;
+
+    [[nodiscard]] int get_id() const;
+
+    [[nodiscard]] std::string get_username() const;
+
+    [[nodiscard]] std::string get_password() const;
+
+    [[nodiscard]] double get_download_capacity() const;
+
 private:
     int id;
     std::string username;

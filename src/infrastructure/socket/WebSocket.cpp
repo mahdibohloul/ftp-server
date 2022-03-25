@@ -17,10 +17,11 @@ void WebSocket::set_up_socket() {
         this->logger->error(&msg[0]);
         exit(1);
     }
-    setsockopt(this->fd, SOL_SOCKET, SO_REUSEADDR, (char *) 1, sizeof(int));
+//    setsockopt(this->fd, SOL_SOCKET, SO_REUSEADDR, (char *) 1, sizeof(int));
     this->server_addr.sin_family = AF_INET;
     this->server_addr.sin_port = htons(this->port);
-    inet_pton(AF_INET, "127.0.0.1", &this->server_addr.sin_addr.s_addr);
+    this->server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+//    inet_pton(AF_INET, "127.0.0.1", &this->server_addr.sin_addr.s_addr);
     if (bind(this->fd, (struct sockaddr *) &this->server_addr, sizeof(this->server_addr)) < 0) {
         std::string msg = "Failed to bind socket on port " + std::to_string(this->port) + ".";
         this->logger->error(&msg[0]);

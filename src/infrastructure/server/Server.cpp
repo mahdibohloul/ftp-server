@@ -1,4 +1,5 @@
 #include "Server.hpp"
+#include "../../framework/router/Router.hpp"
 
 #define RUNNING 1
 #define RECEIVING 1
@@ -36,22 +37,32 @@ void Server::start() {
     char buffer[BUFFER_SIZE];
     while (RUNNING) {
         int client_fd;
+        int client_length = sizeof(client_address);
         this->logger->info("Starting server...");
         if (!(client_fd = accept(this->command_socket->get_socket_fd(),
                                  (struct sockaddr *) &client_address,
-                                 (socklen_t *) sizeof(client_address)))) {
+                                 (socklen_t *) &client_length))) {
             logger->error("Cannot accept command");
             continue;
         }
         this->logger->info("Accepting command...");
+        auto router = new Router(client_fd, buffer);
         while (RECEIVING) {
             recv(client_fd, buffer, BUFFER_SIZE, 0);
-
+            router->execute();
         }
         close(client_fd);
     }
     data_socket->close_socket();
     command_socket->close_socket();
+}
+
+WebSocket *Server::get_command_channel() {
+    return this->command_socket;
+}
+
+WebSocket *Server::get_data_channel() {
+    return this->data_socket;
 }
 
 

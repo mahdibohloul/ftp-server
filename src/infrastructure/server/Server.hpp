@@ -13,6 +13,10 @@ public:
 
     void bootstrap(const std::string &config_file_path);
 
+    WebSocket *get_command_channel();
+
+    WebSocket *get_data_channel();
+
     void start();
 
 private:

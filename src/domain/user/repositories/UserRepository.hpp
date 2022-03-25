@@ -25,6 +25,9 @@ public:
 
     std::list<User> get_all();
 
+    User *find_by_username(const std::string &username);
+
+
 private:
     UserRepository();
 

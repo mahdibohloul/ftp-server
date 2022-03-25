@@ -9,14 +9,16 @@ class UserService {
 public:
     static UserService *getInstance();
 
-    void insert_users(std::list<User*> users);
+    void insert_users(const std::list<User *> &users);
+
+    User *find_user(const std::string &username);
 
 private:
     UserService();
 
     static UserService *instance;
 private:
-    UserRepository *userRepository;
+    UserRepository *user_repository;
 };
 
 
