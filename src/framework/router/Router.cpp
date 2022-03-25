@@ -31,10 +31,11 @@ void Router::execute() {
 void Router::set_up_handlers() {
     auto user_handler = new AuthenticationHandler();
     auto file_handler = new FileHandler();
-    this->handlers.insert(std::make_pair("user", user_handler));
-    this->handlers.insert(std::make_pair("pass", user_handler));
-    this->handlers.insert(std::make_pair("pwd", file_handler));
-    this->handlers.insert(std::make_pair("mkd", file_handler));
+    this->handlers.insert(std::make_pair(CHECK_USERNAME_COMMAND, user_handler));
+    this->handlers.insert(std::make_pair(CHECK_PASSWORD_COMMAND, user_handler));
+    this->handlers.insert(std::make_pair(PWD_COMMAND, file_handler));
+    this->handlers.insert(std::make_pair(MKDIR_COMMAND, file_handler));
+    this->handlers.insert(std::make_pair(RM_COMMAND, file_handler));
 }
 
 std::vector<std::string> Router::split_cmd(std::string cmd) {

@@ -18,6 +18,7 @@ namespace ftp_error_code {
     const int NOT_LOGGED_IN = 332;
     const int PWD_SUCCESSFUL = 257;
     const int MKD_SUCCESSFUL = 257;
+    const int DELETE_SUCCESSFUL = 250;
 }
 
 #endif //FTP_SERVER_FTPSERVERERRORCODE_HPP

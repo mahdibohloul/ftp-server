@@ -9,6 +9,10 @@
 #include "Handler.hpp"
 #include <sys/stat.h>
 
+#define PWD_COMMAND "pwd"
+#define MKDIR_COMMAND "mkd"
+#define RM_COMMAND "dele"
+
 class FileHandler : public Handler {
     void handle(WebSocket *_command_channel, WebSocket *_data_channel, WorkContext *_work_context,
                 std::vector<std::string> _cmd) override;
@@ -19,7 +23,11 @@ public:
 private:
     void pwd();
 
-    void mkd(const std::string& _path);
+    void mkd(const std::string &_path);
+
+    void rm();
+
+    std::pair<std::string, std::string> parse_rm_command(const std::vector<std::string> &_cmd);
 
 private:
     std::vector<std::string> cmd;

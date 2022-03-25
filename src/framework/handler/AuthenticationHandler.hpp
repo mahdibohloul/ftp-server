@@ -6,6 +6,9 @@
 #include "../../infrastructure/FTPServerErrorCode.hpp"
 #include "../../domain/user/services/UserService.hpp"
 
+#define CHECK_USERNAME_COMMAND "user"
+#define CHECK_PASSWORD_COMMAND "pass"
+
 class AuthenticationHandler : public Handler {
     void handle(WebSocket *_command_channel, WebSocket *_data_channel, WorkContext *_work_context,
                 std::vector<std::string> _cmd) override;

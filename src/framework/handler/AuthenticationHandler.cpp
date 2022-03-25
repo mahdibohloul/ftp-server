@@ -8,11 +8,11 @@ void AuthenticationHandler::handle(WebSocket *_command_channel, WebSocket *_data
     this->command_channel = _command_channel;
     this->work_context = _work_context;
     this->cmd = _cmd;
-    if (cmd[0] == "user") {
+    if (cmd[0] == CHECK_USERNAME_COMMAND) {
         cmd.erase(cmd.begin());
         if (is_valid_command(cmd, 1, 1, logger, work_context->get_work_fd()))
             check_username(cmd[0]);
-    } else if (cmd[0] == "pass") {
+    } else if (cmd[0] == CHECK_PASSWORD_COMMAND) {
         cmd.erase(cmd.begin());
         if (is_valid_command(cmd, 1, 1, logger, work_context->get_work_fd()))
             check_password(cmd[0]);
