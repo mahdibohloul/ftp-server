@@ -10,30 +10,12 @@ void AuthenticationHandler::handle(WebSocket *_command_channel, WebSocket *_data
     this->cmd = _cmd;
     if (cmd[0] == "user") {
         cmd.erase(cmd.begin());
-        if (cmd.empty()) {
-            string msg = to_string(ftp_error_code::MISSING_ARGUMENT) + ": No user specified.";
-            send_error(work_context->get_work_fd(), msg, logger);
-            return;
-        }
-        if (cmd.size() > 1) {
-            string msg = to_string(ftp_error_code::TOO_MANY_ARGUMENTS) + ": Too many arguments.";
-            send_error(work_context->get_work_fd(), msg, logger);
-            return;
-        }
-        check_username(cmd[0]);
+        if (is_valid_command(cmd, 1, 1, logger, work_context->get_work_fd()))
+            check_username(cmd[0]);
     } else if (cmd[0] == "pass") {
         cmd.erase(cmd.begin());
-        if (cmd.empty()) {
-            string msg = to_string(ftp_error_code::MISSING_ARGUMENT) + ": No password specified.";
-            send_error(work_context->get_work_fd(), msg, logger);
-            return;
-        }
-        if (cmd.size() > 1) {
-            string msg = to_string(ftp_error_code::TOO_MANY_ARGUMENTS) + ": Too many arguments.";
-            send_error(work_context->get_work_fd(), msg, logger);
-            return;
-        }
-        check_password(cmd[0]);
+        if (is_valid_command(cmd, 1, 1, logger, work_context->get_work_fd()))
+            check_password(cmd[0]);
     }
 
 }

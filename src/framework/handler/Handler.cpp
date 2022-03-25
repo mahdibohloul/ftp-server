@@ -15,3 +15,18 @@ void Handler::send_data(int client_fd, std::string _data, Logger *logger) {
     logger->info(_data);
     send(client_fd, &_data[0], _data.size(), 0);
 }
+
+bool Handler::is_valid_command(const std::vector<std::string> &cmd, int minimum_length, int maximum_length,
+                               Logger *logger, int client_fd) {
+    if (cmd.size() < minimum_length) {
+        std::string msg = std::to_string(ftp_error_code::MISSING_ARGUMENT) + ": No argument provided";
+        send_error(client_fd, msg, logger);
+        return false;
+    }
+    if (cmd.size() > maximum_length) {
+        std::string msg = std::to_string(ftp_error_code::TOO_MANY_ARGUMENTS) + ": Too many arguments";
+        send_error(client_fd, msg, logger);
+        return false;
+    }
+    return true;
+}

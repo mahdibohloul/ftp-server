@@ -7,6 +7,7 @@
 
 
 #include "../../infrastructure/workContext/WorkContext.hpp"
+#include "../../infrastructure/FTPServerErrorCode.hpp"
 #include "vector"
 #include "../../infrastructure/socket/WebSocket.hpp"
 
@@ -24,6 +25,10 @@ public:
     static void send_message(int client_fd, std::string _message, Logger *logger);
 
     static void send_data(int client_fd, std::string _data, Logger *logger);
+
+    static bool
+    is_valid_command(const std::vector<std::string> &cmd, int minimum_length, int maximum_length,
+                     Logger *logger, int client_fd);
 };
 
 
