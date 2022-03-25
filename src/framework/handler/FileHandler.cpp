@@ -1,5 +1,4 @@
 #include "FileHandler.hpp"
-#include "filesystem"
 
 void FileHandler::handle(WebSocket *_command_channel, WebSocket *_data_channel, WorkContext *_work_context,
                          std::vector<std::string> _cmd) {
@@ -23,6 +22,12 @@ void FileHandler::handle(WebSocket *_command_channel, WebSocket *_data_channel, 
             if (is_valid_command(cmd, 2, 2, logger, work_context->get_work_fd(),
                                  work_context->get_current_user()->get_username())) {
                 rm();
+            }
+        } else if (cmd[0] == LS_COMMAND) {
+            cmd.erase(cmd.begin());
+            if (is_valid_command(cmd, 0, 0, logger, work_context->get_work_fd(),
+                                 work_context->get_current_user()->get_username())) {
+                ls();
             }
         }
     }
@@ -99,4 +104,8 @@ std::pair<std::string, std::string> FileHandler::parse_rm_command(const std::vec
         send_error(work_context->get_work_fd(), msg, logger, work_context->get_current_user()->get_username());
     }
     return std::make_pair(flag, path);
+}
+
+void FileHandler::ls() {
+
 }

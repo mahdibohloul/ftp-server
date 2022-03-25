@@ -36,6 +36,7 @@ void Router::set_up_handlers() {
     this->handlers.insert(std::make_pair(PWD_COMMAND, file_handler));
     this->handlers.insert(std::make_pair(MKDIR_COMMAND, file_handler));
     this->handlers.insert(std::make_pair(RM_COMMAND, file_handler));
+    this->handlers.insert(std::make_pair(LS_COMMAND, file_handler));
 }
 
 std::vector<std::string> Router::split_cmd(std::string cmd) {

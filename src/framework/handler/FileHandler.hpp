@@ -8,10 +8,12 @@
 
 #include "Handler.hpp"
 #include <sys/stat.h>
+#include "filesystem"
 
 #define PWD_COMMAND "pwd"
 #define MKDIR_COMMAND "mkd"
 #define RM_COMMAND "dele"
+#define LS_COMMAND "ls"
 
 class FileHandler : public Handler {
     void handle(WebSocket *_command_channel, WebSocket *_data_channel, WorkContext *_work_context,
@@ -26,6 +28,8 @@ private:
     void mkd(const std::string &_path);
 
     void rm();
+
+    void ls();
 
     std::pair<std::string, std::string> parse_rm_command(const std::vector<std::string> &_cmd);
 
