@@ -1,9 +1,4 @@
-#include <cstring>
 #include "Router.hpp"
-#include "../../infrastructure/FTPServerException.hpp"
-#include "../../infrastructure/FTPServerErrorCode.hpp"
-#include "../handler/AuthenticationHandler.hpp"
-#include "../../infrastructure/server/Server.hpp"
 
 Router::Router(int _client_fd, char *_cmd) {
     this->client_fd = _client_fd;
