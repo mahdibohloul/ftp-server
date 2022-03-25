@@ -3,9 +3,8 @@
 
 #include <string>
 #include "../config/ServerConfig.hpp"
-#include "data/DataSocket.hpp"
-#include "command/CommandSocket.hpp"
 #include "../../domain/user/services/UserService.hpp"
+#include "../socket/WebSocket.hpp"
 
 
 class Server {
@@ -20,8 +19,8 @@ private:
     Server();
 
     static Server *instance;
-    DataSocket *data_socket;
-    CommandSocket *command_socket;
+    WebSocket *data_socket;
+    WebSocket *command_socket;
     UserService *user_service;
     Logger *logger;
 };

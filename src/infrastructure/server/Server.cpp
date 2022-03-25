@@ -25,8 +25,8 @@ void Server::bootstrap(const std::string &config_file_path) {
     this->logger->info("Booting up server...");
     auto *server_config = new ServerConfig(config_file_path);
     server_config->read_config_file();
-    this->data_socket = new DataSocket(server_config->get_data_channel_port());
-    this->command_socket = new CommandSocket(server_config->get_command_channel_port());
+    this->data_socket = new WebSocket(server_config->get_data_channel_port());
+    this->command_socket = new WebSocket(server_config->get_command_channel_port());
     this->user_service->insert_users(server_config->get_users());
     this->logger->info("Server booted up successfully.");
 }
@@ -37,7 +37,9 @@ void Server::start() {
     while (RUNNING) {
         int client_fd;
         this->logger->info("Starting server...");
-        if (!this->command_socket->can_accept_command(client_fd, client_address)) {
+        if (!(client_fd = accept(this->command_socket->get_socket_fd(),
+                                 (struct sockaddr *) &client_address,
+                                 (socklen_t *) sizeof(client_address)))) {
             logger->error("Cannot accept command");
             continue;
         }

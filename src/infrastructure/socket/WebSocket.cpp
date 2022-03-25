@@ -1,15 +1,16 @@
+#include "WebSocket.hpp"
 
-#include "CommandSocket.hpp"
-
-CommandSocket::CommandSocket(int port) {
+WebSocket::WebSocket(int port) {
     this->port = port;
-    this->logger = LoggerFactory::getLogger("CommandSocket");
-    this->logger->info(&"Establishing connection on port "[port]);
+    this->logger = LoggerFactory::getLogger("WebSocket");
+    std::string msg = "Establishing connection on port " + std::to_string(port) + "...";
+    this->logger->info(&msg[0]);
     this->set_up_socket();
-    this->logger->info(&"Connection established on port "[port]);
+    msg = "Connection established on port " + std::to_string(port) + ".";
+    this->logger->info(&msg[0]);
 }
 
-void CommandSocket::set_up_socket() {
+void WebSocket::set_up_socket() {
     this->fd = socket(AF_INET, SOCK_STREAM, 0);
     if (!this->fd) {
         this->logger->error(&"Failed to create socket on port "[port]);
@@ -29,11 +30,10 @@ void CommandSocket::set_up_socket() {
     }
 }
 
-bool CommandSocket::can_accept_command(int client_fd, sockaddr_in client_addr) {
-    return client_fd = accept(this->fd, (struct sockaddr *) &client_addr,
-                              (socklen_t *) sizeof(client_addr));
+void WebSocket::close_socket() {
+    close(this->fd);
 }
 
-void CommandSocket::close_socket() {
-    close(this->fd);
+int WebSocket::get_socket_fd() {
+    return this->fd;
 }
