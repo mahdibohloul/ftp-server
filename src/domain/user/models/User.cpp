@@ -4,11 +4,13 @@
 
 #include "User.hpp"
 
-User::User(std::string &username, std::string &password, bool admin, double download_capacity) {
+User::User(std::string &username, std::string &password, bool admin, double download_capacity,
+           Directory *current_directory) {
     this->username = username;
     this->password = password;
     this->admin = admin;
     this->download_capacity = download_capacity;
+    this->current_directory = current_directory == nullptr ? new Directory(get_current_dir_name()) : current_directory;
 }
 
 void User::set_id(int _id) {
@@ -33,4 +35,8 @@ std::string User::get_password() const {
 
 double User::get_download_capacity() const {
     return this->download_capacity;
+}
+
+Directory *User::get_current_directory() const {
+    return this->current_directory;
 }

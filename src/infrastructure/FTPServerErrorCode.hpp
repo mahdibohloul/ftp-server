@@ -15,6 +15,8 @@ namespace ftp_error_code {
     const int TOO_MANY_ARGUMENTS = 501;
     const int BAD_SEQUENCE_OF_COMMANDS = 503;
     const int LOGIN_SUCCESSFUL = 230;
+    const int NOT_LOGGED_IN = 332;
+    const int PWD_SUCCESSFUL = 257;
 }
 
 #endif //FTP_SERVER_FTPSERVERERRORCODE_HPP

@@ -1,5 +1,6 @@
 #include "Router.hpp"
 
+
 Router::Router(int _client_fd, char *_cmd) {
     this->client_fd = _client_fd;
     this->cmd = _cmd;
@@ -28,9 +29,11 @@ void Router::execute() {
 }
 
 void Router::set_up_handlers() {
-    auto userHandler = new AuthenticationHandler();
-    this->handlers.insert(std::make_pair("user", userHandler));
-    this->handlers.insert(std::make_pair("pass", userHandler));
+    auto user_handler = new AuthenticationHandler();
+    auto file_handler = new FileHandler();
+    this->handlers.insert(std::make_pair("user", user_handler));
+    this->handlers.insert(std::make_pair("pass", user_handler));
+    this->handlers.insert(std::make_pair("pwd", file_handler));
 }
 
 std::vector<std::string> Router::split_cmd(std::string cmd) {

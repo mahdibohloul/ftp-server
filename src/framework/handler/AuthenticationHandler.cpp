@@ -65,6 +65,6 @@ void AuthenticationHandler::check_password(const string &password) {
     work_context->set_current_user(pending_user);
     pending_user = nullptr;
     string msg = to_string(ftp_error_code::LOGIN_SUCCESSFUL) + ": User logged in, proceed. Logged out if appropriate.";
-    send_message(work_context->get_work_fd(), msg, logger);
+    send_message(work_context->get_work_fd(), msg, logger, work_context->get_current_user()->get_username());
 }
 
