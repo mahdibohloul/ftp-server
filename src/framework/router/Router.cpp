@@ -34,6 +34,7 @@ void Router::set_up_handlers() {
     this->handlers.insert(std::make_pair("user", user_handler));
     this->handlers.insert(std::make_pair("pass", user_handler));
     this->handlers.insert(std::make_pair("pwd", file_handler));
+    this->handlers.insert(std::make_pair("mkd", file_handler));
 }
 
 std::vector<std::string> Router::split_cmd(std::string cmd) {

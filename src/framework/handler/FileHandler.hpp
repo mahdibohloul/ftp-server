@@ -7,6 +7,7 @@
 
 
 #include "Handler.hpp"
+#include <sys/stat.h>
 
 class FileHandler : public Handler {
     void handle(WebSocket *_command_channel, WebSocket *_data_channel, WorkContext *_work_context,
@@ -17,6 +18,8 @@ public:
 
 private:
     void pwd();
+
+    void mkd(const std::string& _path);
 
 private:
     std::vector<std::string> cmd;
