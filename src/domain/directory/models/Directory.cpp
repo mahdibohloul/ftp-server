@@ -25,3 +25,7 @@ std::string Directory::get_path() const {
 Directory *Directory::get_parent() const {
     return parent;
 }
+
+Directory *Directory::get_root() {
+    return new Directory(get_current_dir_name(), nullptr);
+}

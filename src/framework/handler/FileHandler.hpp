@@ -14,6 +14,7 @@
 #define MKDIR_COMMAND "mkd"
 #define RM_COMMAND "dele"
 #define LS_COMMAND "ls"
+#define CD_COMMAND "cwd"
 
 class FileHandler : public Handler {
     void handle(WebSocket *_command_channel, WebSocket *_data_channel, WorkContext *_work_context,
@@ -30,6 +31,10 @@ private:
     void rm();
 
     void ls();
+
+    void cd(const std::string &_path = "");
+
+    static bool is_path_exist(const std::string &_path);
 
     std::pair<std::string, std::string> parse_rm_command(const std::vector<std::string> &_cmd);
 

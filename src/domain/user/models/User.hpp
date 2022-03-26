@@ -24,6 +24,8 @@ public:
 
     [[nodiscard]] Directory *get_current_directory() const;
 
+    void set_current_directory(Directory *_current_directory);
+
 private:
     int id;
     std::string username;

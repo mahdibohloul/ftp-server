@@ -31,6 +31,13 @@ void FileHandler::handle(WebSocket *_command_channel, WebSocket *_data_channel, 
                                  work_context->get_current_user()->get_username())) {
                 ls();
             }
+        } else if (cmd[0] == CD_COMMAND) {
+            cmd.erase(cmd.begin());
+            if (is_valid_command(cmd, 0, 1, logger, work_context->get_work_command_fd(),
+                                 work_context->get_current_user()->get_username())) {
+                std::string path = cmd.size() == 1 ? cmd[0] : "";
+                cd(path);
+            }
         }
     }
 }
@@ -117,7 +124,7 @@ std::pair<std::string, std::string> FileHandler::parse_rm_command(const std::vec
 void FileHandler::ls() {
     auto path = work_context->get_current_user()->get_current_directory()->get_path();
     std::stringstream ss;
-
+    ss << "." << " " << ".." << " ";
     for (const auto &entry: fs::directory_iterator(path)) {
         ss << entry.path().filename() << " ";
     }
@@ -125,4 +132,57 @@ void FileHandler::ls() {
     std::string msg = std::to_string(ftp_error_code::SEND_DATA_SUCCESSFUL) + ": List transfer done";
     send_message(work_context->get_work_command_fd(), msg, logger, work_context->get_current_user()->get_username());
     send_data(work_context->get_work_data_fd(), ss.str(), logger, work_context->get_current_user()->get_username());
+}
+
+void FileHandler::cd(const std::string &_path) {
+    std::string path = _path;
+    if (path.empty()) {
+        work_context->get_current_user()->set_current_directory(Directory::get_root());
+        std::string msg = std::to_string(ftp_error_code::CD_SUCCESSFUL) + ": Successfully changed.";
+        send_message(work_context->get_work_command_fd(), msg, logger,
+                     work_context->get_current_user()->get_username());
+        return;
+    } else if (path == "..") {
+        if (work_context->get_current_user()->get_current_directory()->get_parent() == nullptr) {
+            std::string msg = std::to_string(ftp_error_code::INTERNAL_ERROR) + ": Failed to change directory";
+            send_error(work_context->get_work_command_fd(), msg, logger,
+                       work_context->get_current_user()->get_username());
+            return;
+        }
+        work_context->get_current_user()->set_current_directory(
+                work_context->get_current_user()->get_current_directory()->get_parent());
+        std::string msg = std::to_string(ftp_error_code::CD_SUCCESSFUL) + ": Successfully changed.";
+        send_message(work_context->get_work_command_fd(), msg, logger,
+                     work_context->get_current_user()->get_username());
+        return;
+    } else if (path == ".") {
+        std::string msg = std::to_string(ftp_error_code::CD_SUCCESSFUL) + ": Successfully changed.";
+        send_message(work_context->get_work_command_fd(), msg, logger,
+                     work_context->get_current_user()->get_username());
+        return;
+    } else {
+        std::cout << "path: " << path << std::endl;
+        path = work_context->get_current_user()->get_current_directory()->get_path() + "/" + path;
+        std::cout << "path to change: " << path << std::endl;
+        if (is_path_exist(path)) {
+            work_context->get_current_user()->set_current_directory(
+                    new Directory(path, work_context->get_current_user()->get_current_directory()));
+            std::cout << "changed path: " << work_context->get_current_user()->get_current_directory()->get_path()
+                      << std::endl;
+            std::string msg = std::to_string(ftp_error_code::CD_SUCCESSFUL) + ": Successfully changed.";
+            send_message(work_context->get_work_command_fd(), msg, logger,
+                         work_context->get_current_user()->get_username());
+            return;
+        } else {
+            std::string msg = std::to_string(ftp_error_code::INTERNAL_ERROR) + ": Failed to change directory";
+            send_error(work_context->get_work_command_fd(), msg, logger,
+                       work_context->get_current_user()->get_username());
+            return;
+        }
+    }
+}
+
+bool FileHandler::is_path_exist(const std::string &_path) {
+    struct stat st;
+    return (stat(_path.c_str(), &st) == 0);
 }

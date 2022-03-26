@@ -8,10 +8,13 @@
 
 #include <string>
 #include <vector>
+#include <unistd.h>
 
 class Directory {
 public:
     explicit Directory(const std::string &path, Directory *parent = nullptr);
+
+    static Directory *get_root();
 
     [[nodiscard]] std::vector<std::string> get_files() const;
 
