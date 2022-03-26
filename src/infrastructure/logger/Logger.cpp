@@ -8,7 +8,7 @@
 using namespace std;
 
 Logger::Logger(const string &name) {
-    this->log_file_name = "../log.txt";
+    this->log_file_name = "./log.txt";
     this->name = name;
 }
 

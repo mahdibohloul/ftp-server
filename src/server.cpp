@@ -2,7 +2,7 @@
 
 int main() {
     auto *server = Server::getInstance();
-    server->bootstrap("../config.json");
+    server->bootstrap("./config.json");
     server->start();
     return 0;
 }
