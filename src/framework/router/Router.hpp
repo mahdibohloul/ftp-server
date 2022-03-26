@@ -10,7 +10,7 @@
 
 class Router {
 public:
-    Router(int _client_fd, char *_cmd);
+    Router(int _client_command_fd, int _client_data_fd, char *_cmd);
 
     void execute();
 
@@ -23,7 +23,8 @@ private:
     typedef std::map<std::string, Handler *> router_map;
 
 
-    int client_fd;
+    int client_command_fd;
+    int client_data_fd;
     char *cmd;
     WorkContext *work_context;
     Logger *logger;

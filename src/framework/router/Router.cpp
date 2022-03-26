@@ -1,10 +1,11 @@
 #include "Router.hpp"
 
 
-Router::Router(int _client_fd, char *_cmd) {
-    this->client_fd = _client_fd;
+Router::Router(int _client_command_fd, int _client_data_fd, char *_cmd) {
+    this->client_command_fd = _client_command_fd;
+    this->client_data_fd = _client_data_fd;
     this->cmd = _cmd;
-    this->work_context = new WorkContext(this->client_fd);
+    this->work_context = new WorkContext(this->client_command_fd, this->client_data_fd);
     command_channel = Server::getInstance()->get_command_channel();
     data_channel = Server::getInstance()->get_data_channel();
     logger = LoggerFactory::getLogger("Router");
@@ -23,7 +24,7 @@ void Router::execute() {
         }
         handler->handle(command_channel, data_channel, work_context, splitted_cmd);
     } catch (FTPServerException &e) {
-        Handler::send_error(work_context->get_work_fd(), e.to_string(), logger);
+        Handler::send_error(work_context->get_work_command_fd(), e.to_string(), logger);
     }
 
 }

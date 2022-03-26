@@ -8,19 +8,22 @@
 
 class WorkContext {
 public:
-    explicit WorkContext(int work_fd);
+    explicit WorkContext(int work_command_fd, int work_data_fd);
 
     User *get_current_user();
 
     void set_current_user(User *user);
 
-    std::string get_current_ip();
+    std::string get_current_ip() const;
 
-    int get_work_fd();
+    int get_work_command_fd() const;
+
+    int get_work_data_fd() const;
 
 private:
     User *current_user;
-    int work_fd;
+    int work_command_fd;
+    int work_data_fd;
 };
 
 
