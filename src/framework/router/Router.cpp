@@ -34,6 +34,7 @@ void Router::execute() {
 void Router::set_up_handlers() {
     auto user_handler = new AuthenticationHandler();
     auto file_handler = new FileHandler();
+    auto common_handler = new CommonHandler();
     this->handlers.insert(std::make_pair(CHECK_USERNAME_COMMAND, user_handler));
     this->handlers.insert(std::make_pair(CHECK_PASSWORD_COMMAND, user_handler));
     this->handlers.insert(std::make_pair(PWD_COMMAND, file_handler));
@@ -43,6 +44,7 @@ void Router::set_up_handlers() {
     this->handlers.insert(std::make_pair(CD_COMMAND, file_handler));
     this->handlers.insert(std::make_pair(RENAME_COMMAND, file_handler));
     this->handlers.insert(std::make_pair(DOWNLOAD_COMMAND, file_handler));
+    this->handlers.insert(std::make_pair(HELP_COMMAND, common_handler));
 }
 
 std::vector<std::string> Router::split_cmd(std::string cmd) {

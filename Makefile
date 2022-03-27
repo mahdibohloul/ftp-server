@@ -321,6 +321,30 @@ src/framework/handler/AuthenticationHandler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/framework/handler/AuthenticationHandler.cpp.s
 .PHONY : src/framework/handler/AuthenticationHandler.cpp.s
 
+src/framework/handler/CommonHandler.o: src/framework/handler/CommonHandler.cpp.o
+.PHONY : src/framework/handler/CommonHandler.o
+
+# target to build an object file
+src/framework/handler/CommonHandler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/framework/handler/CommonHandler.cpp.o
+.PHONY : src/framework/handler/CommonHandler.cpp.o
+
+src/framework/handler/CommonHandler.i: src/framework/handler/CommonHandler.cpp.i
+.PHONY : src/framework/handler/CommonHandler.i
+
+# target to preprocess a source file
+src/framework/handler/CommonHandler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/framework/handler/CommonHandler.cpp.i
+.PHONY : src/framework/handler/CommonHandler.cpp.i
+
+src/framework/handler/CommonHandler.s: src/framework/handler/CommonHandler.cpp.s
+.PHONY : src/framework/handler/CommonHandler.s
+
+# target to generate assembly for a file
+src/framework/handler/CommonHandler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/framework/handler/CommonHandler.cpp.s
+.PHONY : src/framework/handler/CommonHandler.cpp.s
+
 src/framework/handler/FileHandler.o: src/framework/handler/FileHandler.cpp.o
 .PHONY : src/framework/handler/FileHandler.o
 
@@ -666,6 +690,9 @@ help:
 	@echo "... src/framework/handler/AuthenticationHandler.o"
 	@echo "... src/framework/handler/AuthenticationHandler.i"
 	@echo "... src/framework/handler/AuthenticationHandler.s"
+	@echo "... src/framework/handler/CommonHandler.o"
+	@echo "... src/framework/handler/CommonHandler.i"
+	@echo "... src/framework/handler/CommonHandler.s"
 	@echo "... src/framework/handler/FileHandler.o"
 	@echo "... src/framework/handler/FileHandler.i"
 	@echo "... src/framework/handler/FileHandler.s"

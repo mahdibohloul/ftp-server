@@ -6,6 +6,7 @@
 #include "../../infrastructure/FTPServerException.hpp"
 #include "../handler/AuthenticationHandler.hpp"
 #include "../../infrastructure/server/Server.hpp"
+#include "../handler/CommonHandler.hpp"
 #include "../handler/FileHandler.hpp"
 
 class Router {
