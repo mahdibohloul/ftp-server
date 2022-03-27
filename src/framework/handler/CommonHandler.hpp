@@ -8,8 +8,10 @@
 
 #include "Handler.hpp"
 #include <sstream>
+#include "../../infrastructure/FTPServerException.hpp"
 
 #define HELP_COMMAND "help"
+#define QUIT_COMMAND "quit"
 
 class CommonHandler : public Handler {
     void handle(WebSocket *_command_channel, WebSocket *_data_channel, WorkContext *_work_context,
@@ -20,6 +22,8 @@ public:
 
 private:
     void help();
+
+    void quit();
 
 private:
     WorkContext *work_context;

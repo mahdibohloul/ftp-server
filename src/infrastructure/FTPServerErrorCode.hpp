@@ -24,6 +24,7 @@ namespace ftp_error_code {
     const int ACCESS_DENIED = 550;
     const int RENAME_SUCCESSFUL = 250;
     const int CANNOT_OPEN_DATA_CONNECTION = 425;
+    const int QUIT_SUCCESSFUL = 221;
 }
 
 #endif //FTP_SERVER_FTPSERVERERRORCODE_HPP

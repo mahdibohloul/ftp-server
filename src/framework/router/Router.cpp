@@ -23,7 +23,11 @@ void Router::execute() {
             throw FTPServerException("Invalid command", ftp_error_code::INTERNAL_ERROR);
         }
         handler->handle(command_channel, data_channel, work_context, splitted_cmd);
-    } catch (FTPServerException &e) {
+    }
+    catch (QuitException &e) {
+        throw e;
+    }
+    catch (FTPServerException &e) {
         auto username = work_context->get_current_user() != nullptr ? work_context->get_current_user()->get_username()
                                                                     : "unknown";
         Handler::send_error(work_context->get_work_command_fd(), e.to_string(), logger, username);
@@ -32,11 +36,11 @@ void Router::execute() {
 }
 
 void Router::set_up_handlers() {
-    auto user_handler = new AuthenticationHandler();
+    auto authentication_handler = new AuthenticationHandler();
     auto file_handler = new FileHandler();
     auto common_handler = new CommonHandler();
-    this->handlers.insert(std::make_pair(CHECK_USERNAME_COMMAND, user_handler));
-    this->handlers.insert(std::make_pair(CHECK_PASSWORD_COMMAND, user_handler));
+    this->handlers.insert(std::make_pair(CHECK_USERNAME_COMMAND, authentication_handler));
+    this->handlers.insert(std::make_pair(CHECK_PASSWORD_COMMAND, authentication_handler));
     this->handlers.insert(std::make_pair(PWD_COMMAND, file_handler));
     this->handlers.insert(std::make_pair(MKDIR_COMMAND, file_handler));
     this->handlers.insert(std::make_pair(RM_COMMAND, file_handler));
@@ -45,6 +49,7 @@ void Router::set_up_handlers() {
     this->handlers.insert(std::make_pair(RENAME_COMMAND, file_handler));
     this->handlers.insert(std::make_pair(DOWNLOAD_COMMAND, file_handler));
     this->handlers.insert(std::make_pair(HELP_COMMAND, common_handler));
+    this->handlers.insert(std::make_pair(QUIT_COMMAND, common_handler));
 }
 
 std::vector<std::string> Router::split_cmd(std::string cmd) {

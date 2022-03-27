@@ -11,17 +11,22 @@ public:
         this->error_code = error_code;
     }
 
-    int get_error_code() const {
+    [[nodiscard]] int get_error_code() const {
         return error_code;
     }
 
-    std::string to_string() const {
+    [[nodiscard]] std::string to_string() const {
         return std::to_string(error_code) + ": " + _message;
     }
 
 private:
     int error_code;
     std::string _message;
+};
+
+class QuitException : public FTPServerException {
+public:
+    explicit QuitException(std::string message) : FTPServerException(std::move(message), 0) {}
 };
 
 #endif //FTP_SERVER_FTPSERVEREXCEPTION_HPP

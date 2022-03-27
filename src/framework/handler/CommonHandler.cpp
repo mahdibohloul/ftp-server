@@ -15,6 +15,12 @@ void CommonHandler::handle(WebSocket *_command_channel, WebSocket *_data_channel
                                  work_context->get_current_user()->get_username())) {
                 help();
             }
+        } else if (cmd[0] == QUIT_COMMAND) {
+            cmd.erase(cmd.begin());
+            if (is_valid_command(cmd, 0, 0, logger, work_context->get_work_command_fd(),
+                                 work_context->get_current_user()->get_username())) {
+                quit();
+            }
         }
     }
 }
@@ -32,4 +38,10 @@ void CommonHandler::help() {
     help_file.close();
     send_message(work_context->get_work_command_fd(), help_text, logger,
                  work_context->get_current_user()->get_username());
+}
+
+void CommonHandler::quit() {
+    std::string msg = std::to_string(ftp_error_code::QUIT_SUCCESSFUL) + ": Successful Quit.";
+    send_message(work_context->get_work_command_fd(), msg, logger, work_context->get_current_user()->get_username());
+    throw QuitException(msg);
 }

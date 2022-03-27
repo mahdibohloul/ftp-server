@@ -37,11 +37,11 @@ void Server::bootstrap(const std::string &config_file_path) {
 void Server::start() {
     struct sockaddr_in client_address;
     char buffer[BUFFER_SIZE];
+    this->logger->info("Starting server...");
     while (RUNNING) {
         int client_command_fd;
         int client_data_fd;
         int client_length = sizeof(client_address);
-        this->logger->info("Starting server...");
         if (!(client_command_fd = accept(this->command_socket->get_socket_fd(),
                                          (struct sockaddr *) &client_address,
                                          (socklen_t *) &client_length))) {
@@ -58,13 +58,22 @@ void Server::start() {
         auto router = new Router(client_command_fd, client_data_fd, buffer);
         while (RECEIVING) {
             recv(client_command_fd, buffer, BUFFER_SIZE, 0);
-            router->execute();
+            try {
+                router->execute();
+            } catch (QuitException &e) {
+                break;
+            } catch (std::exception &e) {
+                this->logger->error(e.what());
+                break;
+            }
         }
         close(client_command_fd);
         close(client_data_fd);
+        this->logger->info("Client disconnected.");
     }
     data_socket->close_socket();
     command_socket->close_socket();
+    this->logger->info("Server stopped.");
 }
 
 WebSocket *Server::get_command_channel() {
