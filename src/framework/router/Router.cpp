@@ -42,6 +42,7 @@ void Router::set_up_handlers() {
     this->handlers.insert(std::make_pair(LS_COMMAND, file_handler));
     this->handlers.insert(std::make_pair(CD_COMMAND, file_handler));
     this->handlers.insert(std::make_pair(RENAME_COMMAND, file_handler));
+    this->handlers.insert(std::make_pair(DOWNLOAD_COMMAND, file_handler));
 }
 
 std::vector<std::string> Router::split_cmd(std::string cmd) {

@@ -45,3 +45,7 @@ void User::set_current_directory(Directory *_current_directory) {
 std::vector<Role> User::get_roles() const {
     return this->roles;
 }
+
+void User::decrease_download_capacity(double amount) {
+    this->download_capacity -= amount;
+}

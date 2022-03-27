@@ -23,6 +23,8 @@ public:
 
     [[nodiscard]] double get_download_capacity() const;
 
+    void decrease_download_capacity(double amount);
+
     [[nodiscard]] Directory *get_current_directory() const;
 
     void set_current_directory(Directory *_current_directory);

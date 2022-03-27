@@ -17,6 +17,7 @@
 #define LS_COMMAND "ls"
 #define CD_COMMAND "cwd"
 #define RENAME_COMMAND "rename_file"
+#define DOWNLOAD_COMMAND "retr"
 
 class FileHandler : public Handler {
     void handle(WebSocket *_command_channel, WebSocket *_data_channel, WorkContext *_work_context,
@@ -38,7 +39,11 @@ private:
 
     void rename_file(const std::string &_old_name, const std::string &_new_name);
 
+    void download(const std::string &_file_name);
+
     static bool is_path_exist(const std::string &_path);
+
+    static bool is_path_directory(const std::string &_path);
 
     std::pair<std::string, std::string> parse_rm_command(const std::vector<std::string> &_cmd);
 

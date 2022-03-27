@@ -44,6 +44,12 @@ void FileHandler::handle(WebSocket *_command_channel, WebSocket *_data_channel, 
                                  work_context->get_current_user()->get_username())) {
                 rename_file(cmd[0], cmd[1]);
             }
+        } else if (cmd[0] == DOWNLOAD_COMMAND) {
+            cmd.erase(cmd.begin());
+            if (is_valid_command(cmd, 1, 1, logger, work_context->get_work_command_fd(),
+                                 work_context->get_current_user()->get_username())) {
+                download(cmd[0]);
+            }
         }
     }
 }
@@ -172,15 +178,16 @@ void FileHandler::cd(const std::string &_path) {
         path = work_context->get_current_user()->get_current_directory()->get_path() + "/" + path;
         std::cout << "path to change: " << path << std::endl;
         if (is_path_exist(path)) {
-            work_context->get_current_user()->set_current_directory(
-                    new Directory(path, work_context->get_current_user()->get_current_directory()));
-            std::cout << "changed path: " << work_context->get_current_user()->get_current_directory()->get_path()
-                      << std::endl;
-            std::string msg = std::to_string(ftp_error_code::CD_SUCCESSFUL) + ": Successfully changed.";
-            send_message(work_context->get_work_command_fd(), msg, logger,
-                         work_context->get_current_user()->get_username());
-            return;
-        } else {
+            if (is_path_directory(path)) {
+                work_context->get_current_user()->set_current_directory(
+                        new Directory(path, work_context->get_current_user()->get_current_directory()));
+                std::cout << "changed path: " << work_context->get_current_user()->get_current_directory()->get_path()
+                          << std::endl;
+                std::string msg = std::to_string(ftp_error_code::CD_SUCCESSFUL) + ": Successfully changed.";
+                send_message(work_context->get_work_command_fd(), msg, logger,
+                             work_context->get_current_user()->get_username());
+                return;
+            }
             std::string msg = std::to_string(ftp_error_code::INTERNAL_ERROR) + ": Failed to change directory";
             send_error(work_context->get_work_command_fd(), msg, logger,
                        work_context->get_current_user()->get_username());
@@ -197,7 +204,7 @@ bool FileHandler::is_path_exist(const std::string &_path) {
 void FileHandler::rename_file(const std::string &_old_name, const std::string &_new_name) {
     std::string old_name_path = work_context->get_current_user()->get_current_directory()->get_path() + "/" + _old_name;
     if (!is_file_accessible(old_name_path)) {
-        std::string msg = std::to_string(ftp_error_code::INTERNAL_ERROR) + ": File unavailable";
+        std::string msg = std::to_string(ftp_error_code::ACCESS_DENIED) + ": File unavailable";
         send_error(work_context->get_work_command_fd(), msg, logger,
                    work_context->get_current_user()->get_username());
         return;
@@ -227,4 +234,48 @@ bool FileHandler::is_file_accessible(const std::string &_path) {
                        work_context->get_current_user()->get_roles().end(), [&](const Role role) {
                 return granted_file->has_permission(role);
             });
+}
+
+void FileHandler::download(const std::string &_file_name) {
+    auto path = work_context->get_current_user()->get_current_directory()->get_path() + "/" + _file_name;
+    auto remaining_capacity = work_context->get_current_user()->get_download_capacity();
+    if (!is_file_accessible(path)) {
+        std::string msg = std::to_string(ftp_error_code::ACCESS_DENIED) + ": File unavailable";
+        send_error(work_context->get_work_command_fd(), msg, logger,
+                   work_context->get_current_user()->get_username());
+        return;
+    }
+
+    std::ifstream target_file(path);
+    if (!target_file.is_open()) {
+        std::string msg = std::to_string(ftp_error_code::INTERNAL_ERROR) + ": Failed to open file";
+        send_error(work_context->get_work_command_fd(), msg, logger,
+                   work_context->get_current_user()->get_username());
+        return;
+    }
+
+    std::stringstream buffer;
+    buffer << target_file.rdbuf();
+    std::string file_content = buffer.str();
+    target_file.close();
+    double file_size = file_content.size();
+    if (remaining_capacity < file_size) {
+        target_file.close();
+        std::string msg = std::to_string(ftp_error_code::CANNOT_OPEN_DATA_CONNECTION) + ": Can't open data connection";
+        send_error(work_context->get_work_command_fd(), msg, logger,
+                   work_context->get_current_user()->get_username());
+        return;
+    }
+    std::cout << "File content: " << file_content << std::endl;
+    work_context->get_current_user()->decrease_download_capacity(file_size);
+    std::string msg = std::to_string(ftp_error_code::SEND_DATA_SUCCESSFUL) + ": Successful Download.";
+    send_message(work_context->get_work_command_fd(), msg, logger,
+                 work_context->get_current_user()->get_username());
+    send_data(work_context->get_work_data_fd(), file_content, logger,
+              work_context->get_current_user()->get_username());
+}
+
+bool FileHandler::is_path_directory(const std::string &_path) {
+    return fs::is_directory(_path);
+
 }
