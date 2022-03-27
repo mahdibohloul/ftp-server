@@ -153,6 +153,78 @@ src/domain/directory/models/Directory.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/domain/directory/models/Directory.cpp.s
 .PHONY : src/domain/directory/models/Directory.cpp.s
 
+src/domain/file/models/GrantedFile.o: src/domain/file/models/GrantedFile.cpp.o
+.PHONY : src/domain/file/models/GrantedFile.o
+
+# target to build an object file
+src/domain/file/models/GrantedFile.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/domain/file/models/GrantedFile.cpp.o
+.PHONY : src/domain/file/models/GrantedFile.cpp.o
+
+src/domain/file/models/GrantedFile.i: src/domain/file/models/GrantedFile.cpp.i
+.PHONY : src/domain/file/models/GrantedFile.i
+
+# target to preprocess a source file
+src/domain/file/models/GrantedFile.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/domain/file/models/GrantedFile.cpp.i
+.PHONY : src/domain/file/models/GrantedFile.cpp.i
+
+src/domain/file/models/GrantedFile.s: src/domain/file/models/GrantedFile.cpp.s
+.PHONY : src/domain/file/models/GrantedFile.s
+
+# target to generate assembly for a file
+src/domain/file/models/GrantedFile.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/domain/file/models/GrantedFile.cpp.s
+.PHONY : src/domain/file/models/GrantedFile.cpp.s
+
+src/domain/file/repositories/GrantedFileRepository.o: src/domain/file/repositories/GrantedFileRepository.cpp.o
+.PHONY : src/domain/file/repositories/GrantedFileRepository.o
+
+# target to build an object file
+src/domain/file/repositories/GrantedFileRepository.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/domain/file/repositories/GrantedFileRepository.cpp.o
+.PHONY : src/domain/file/repositories/GrantedFileRepository.cpp.o
+
+src/domain/file/repositories/GrantedFileRepository.i: src/domain/file/repositories/GrantedFileRepository.cpp.i
+.PHONY : src/domain/file/repositories/GrantedFileRepository.i
+
+# target to preprocess a source file
+src/domain/file/repositories/GrantedFileRepository.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/domain/file/repositories/GrantedFileRepository.cpp.i
+.PHONY : src/domain/file/repositories/GrantedFileRepository.cpp.i
+
+src/domain/file/repositories/GrantedFileRepository.s: src/domain/file/repositories/GrantedFileRepository.cpp.s
+.PHONY : src/domain/file/repositories/GrantedFileRepository.s
+
+# target to generate assembly for a file
+src/domain/file/repositories/GrantedFileRepository.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/domain/file/repositories/GrantedFileRepository.cpp.s
+.PHONY : src/domain/file/repositories/GrantedFileRepository.cpp.s
+
+src/domain/file/services/GrantedFileService.o: src/domain/file/services/GrantedFileService.cpp.o
+.PHONY : src/domain/file/services/GrantedFileService.o
+
+# target to build an object file
+src/domain/file/services/GrantedFileService.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/domain/file/services/GrantedFileService.cpp.o
+.PHONY : src/domain/file/services/GrantedFileService.cpp.o
+
+src/domain/file/services/GrantedFileService.i: src/domain/file/services/GrantedFileService.cpp.i
+.PHONY : src/domain/file/services/GrantedFileService.i
+
+# target to preprocess a source file
+src/domain/file/services/GrantedFileService.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/domain/file/services/GrantedFileService.cpp.i
+.PHONY : src/domain/file/services/GrantedFileService.cpp.i
+
+src/domain/file/services/GrantedFileService.s: src/domain/file/services/GrantedFileService.cpp.s
+.PHONY : src/domain/file/services/GrantedFileService.s
+
+# target to generate assembly for a file
+src/domain/file/services/GrantedFileService.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/domain/file/services/GrantedFileService.cpp.s
+.PHONY : src/domain/file/services/GrantedFileService.cpp.s
+
 src/domain/user/models/User.o: src/domain/user/models/User.cpp.o
 .PHONY : src/domain/user/models/User.o
 
@@ -321,6 +393,30 @@ src/framework/router/Router.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/framework/router/Router.cpp.s
 .PHONY : src/framework/router/Router.cpp.s
 
+src/infrastructure/BaseEntity.o: src/infrastructure/BaseEntity.cpp.o
+.PHONY : src/infrastructure/BaseEntity.o
+
+# target to build an object file
+src/infrastructure/BaseEntity.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/infrastructure/BaseEntity.cpp.o
+.PHONY : src/infrastructure/BaseEntity.cpp.o
+
+src/infrastructure/BaseEntity.i: src/infrastructure/BaseEntity.cpp.i
+.PHONY : src/infrastructure/BaseEntity.i
+
+# target to preprocess a source file
+src/infrastructure/BaseEntity.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/infrastructure/BaseEntity.cpp.i
+.PHONY : src/infrastructure/BaseEntity.cpp.i
+
+src/infrastructure/BaseEntity.s: src/infrastructure/BaseEntity.cpp.s
+.PHONY : src/infrastructure/BaseEntity.s
+
+# target to generate assembly for a file
+src/infrastructure/BaseEntity.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/infrastructure/BaseEntity.cpp.s
+.PHONY : src/infrastructure/BaseEntity.cpp.s
+
 src/infrastructure/config/ServerConfig.o: src/infrastructure/config/ServerConfig.cpp.o
 .PHONY : src/infrastructure/config/ServerConfig.o
 
@@ -392,6 +488,30 @@ src/infrastructure/logger/LoggerFactory.s: src/infrastructure/logger/LoggerFacto
 src/infrastructure/logger/LoggerFactory.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/infrastructure/logger/LoggerFactory.cpp.s
 .PHONY : src/infrastructure/logger/LoggerFactory.cpp.s
+
+src/infrastructure/repository/Repository.o: src/infrastructure/repository/Repository.cpp.o
+.PHONY : src/infrastructure/repository/Repository.o
+
+# target to build an object file
+src/infrastructure/repository/Repository.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/infrastructure/repository/Repository.cpp.o
+.PHONY : src/infrastructure/repository/Repository.cpp.o
+
+src/infrastructure/repository/Repository.i: src/infrastructure/repository/Repository.cpp.i
+.PHONY : src/infrastructure/repository/Repository.i
+
+# target to preprocess a source file
+src/infrastructure/repository/Repository.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/infrastructure/repository/Repository.cpp.i
+.PHONY : src/infrastructure/repository/Repository.cpp.i
+
+src/infrastructure/repository/Repository.s: src/infrastructure/repository/Repository.cpp.s
+.PHONY : src/infrastructure/repository/Repository.s
+
+# target to generate assembly for a file
+src/infrastructure/repository/Repository.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ftp_server.dir/build.make CMakeFiles/ftp_server.dir/src/infrastructure/repository/Repository.cpp.s
+.PHONY : src/infrastructure/repository/Repository.cpp.s
 
 src/infrastructure/server/Server.o: src/infrastructure/server/Server.cpp.o
 .PHONY : src/infrastructure/server/Server.o
@@ -525,6 +645,15 @@ help:
 	@echo "... src/domain/directory/models/Directory.o"
 	@echo "... src/domain/directory/models/Directory.i"
 	@echo "... src/domain/directory/models/Directory.s"
+	@echo "... src/domain/file/models/GrantedFile.o"
+	@echo "... src/domain/file/models/GrantedFile.i"
+	@echo "... src/domain/file/models/GrantedFile.s"
+	@echo "... src/domain/file/repositories/GrantedFileRepository.o"
+	@echo "... src/domain/file/repositories/GrantedFileRepository.i"
+	@echo "... src/domain/file/repositories/GrantedFileRepository.s"
+	@echo "... src/domain/file/services/GrantedFileService.o"
+	@echo "... src/domain/file/services/GrantedFileService.i"
+	@echo "... src/domain/file/services/GrantedFileService.s"
 	@echo "... src/domain/user/models/User.o"
 	@echo "... src/domain/user/models/User.i"
 	@echo "... src/domain/user/models/User.s"
@@ -546,6 +675,9 @@ help:
 	@echo "... src/framework/router/Router.o"
 	@echo "... src/framework/router/Router.i"
 	@echo "... src/framework/router/Router.s"
+	@echo "... src/infrastructure/BaseEntity.o"
+	@echo "... src/infrastructure/BaseEntity.i"
+	@echo "... src/infrastructure/BaseEntity.s"
 	@echo "... src/infrastructure/config/ServerConfig.o"
 	@echo "... src/infrastructure/config/ServerConfig.i"
 	@echo "... src/infrastructure/config/ServerConfig.s"
@@ -555,6 +687,9 @@ help:
 	@echo "... src/infrastructure/logger/LoggerFactory.o"
 	@echo "... src/infrastructure/logger/LoggerFactory.i"
 	@echo "... src/infrastructure/logger/LoggerFactory.s"
+	@echo "... src/infrastructure/repository/Repository.o"
+	@echo "... src/infrastructure/repository/Repository.i"
+	@echo "... src/infrastructure/repository/Repository.s"
 	@echo "... src/infrastructure/server/Server.o"
 	@echo "... src/infrastructure/server/Server.i"
 	@echo "... src/infrastructure/server/Server.s"

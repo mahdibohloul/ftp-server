@@ -5,6 +5,7 @@
 #include "../config/ServerConfig.hpp"
 #include "../../domain/user/services/UserService.hpp"
 #include "../socket/WebSocket.hpp"
+#include "../../domain/file/services/GrantedFileService.hpp"
 
 
 class Server {
@@ -26,6 +27,7 @@ private:
     WebSocket *data_socket;
     WebSocket *command_socket;
     UserService *user_service;
+    GrantedFileService *file_service;
     Logger *logger;
 };
 

@@ -15,7 +15,7 @@ UserService *UserService::getInstance() {
 
 void UserService::insert_users(const std::list<User *> &users) {
     for (auto item: users) {
-        this->user_repository->insert(*item);
+        this->user_repository->insert(item);
     }
 }
 

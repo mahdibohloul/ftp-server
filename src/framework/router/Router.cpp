@@ -24,7 +24,9 @@ void Router::execute() {
         }
         handler->handle(command_channel, data_channel, work_context, splitted_cmd);
     } catch (FTPServerException &e) {
-        Handler::send_error(work_context->get_work_command_fd(), e.to_string(), logger);
+        auto username = work_context->get_current_user() != nullptr ? work_context->get_current_user()->get_username()
+                                                                    : "unknown";
+        Handler::send_error(work_context->get_work_command_fd(), e.to_string(), logger, username);
     }
 
 }
@@ -39,6 +41,7 @@ void Router::set_up_handlers() {
     this->handlers.insert(std::make_pair(RM_COMMAND, file_handler));
     this->handlers.insert(std::make_pair(LS_COMMAND, file_handler));
     this->handlers.insert(std::make_pair(CD_COMMAND, file_handler));
+    this->handlers.insert(std::make_pair(RENAME_COMMAND, file_handler));
 }
 
 std::vector<std::string> Router::split_cmd(std::string cmd) {

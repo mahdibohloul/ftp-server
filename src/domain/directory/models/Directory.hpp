@@ -16,6 +16,8 @@ public:
 
     static Directory *get_root();
 
+    [[nodiscard]] bool is_root() const;
+
     [[nodiscard]] std::vector<std::string> get_files() const;
 
     [[nodiscard]] std::vector<Directory> get_directories() const;

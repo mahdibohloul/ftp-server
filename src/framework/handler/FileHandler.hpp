@@ -9,12 +9,14 @@
 #include "Handler.hpp"
 #include <sys/stat.h>
 #include "filesystem"
+#include "../../domain/file/services/GrantedFileService.hpp"
 
 #define PWD_COMMAND "pwd"
 #define MKDIR_COMMAND "mkd"
 #define RM_COMMAND "dele"
 #define LS_COMMAND "ls"
 #define CD_COMMAND "cwd"
+#define RENAME_COMMAND "rename_file"
 
 class FileHandler : public Handler {
     void handle(WebSocket *_command_channel, WebSocket *_data_channel, WorkContext *_work_context,
@@ -34,14 +36,19 @@ private:
 
     void cd(const std::string &_path = "");
 
+    void rename_file(const std::string &_old_name, const std::string &_new_name);
+
     static bool is_path_exist(const std::string &_path);
 
     std::pair<std::string, std::string> parse_rm_command(const std::vector<std::string> &_cmd);
+
+    bool is_file_accessible(const std::string &_path);
 
 private:
     std::vector<std::string> cmd;
     Logger *logger;
     WorkContext *work_context;
+    GrantedFileService *granted_file_service;
 };
 
 

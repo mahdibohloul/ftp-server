@@ -12,6 +12,7 @@ Server *Server::instance = nullptr;
 
 Server::Server() {
     this->user_service = UserService::getInstance();
+    this->file_service = GrantedFileService::getInstance();
     this->logger = LoggerFactory::getLogger("Server");
 }
 
@@ -29,6 +30,7 @@ void Server::bootstrap(const std::string &config_file_path) {
     this->data_socket = new WebSocket(server_config->get_data_channel_port());
     this->command_socket = new WebSocket(server_config->get_command_channel_port());
     this->user_service->insert_users(server_config->get_users());
+    this->file_service->insert_files(server_config->get_protected_files());
     this->logger->info("Server booted up successfully.");
 }
 

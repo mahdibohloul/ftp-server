@@ -3,18 +3,19 @@
 
 #include "string"
 #include "../../directory/models/Directory.hpp"
+#include "Role.hpp"
+#include "../../../infrastructure/BaseEntity.hpp"
+#include <utility>
 #include <unistd.h>
 
-class User {
+class User : public BaseEntity {
 public:
-    User(std::string &username, std::string &password, bool admin, double download_capacity,
-         Directory *current_directory = nullptr);
+    User(std::string &username, std::string &password, double download_capacity,
+         Directory *current_directory = nullptr, std::vector<Role> roles = {Role::USER});
 
     [[nodiscard]] bool is_admin() const;
 
-    void set_id(int _id);
-
-    [[nodiscard]] int get_id() const;
+    std::vector<Role> get_roles() const;
 
     [[nodiscard]] std::string get_username() const;
 
@@ -27,13 +28,11 @@ public:
     void set_current_directory(Directory *_current_directory);
 
 private:
-    int id;
     std::string username;
     std::string password;
     double download_capacity;
-    bool admin;
     Directory *current_directory;
-
+    std::vector<Role> roles;
 };
 
 

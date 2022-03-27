@@ -38,6 +38,12 @@ void FileHandler::handle(WebSocket *_command_channel, WebSocket *_data_channel, 
                 std::string path = cmd.size() == 1 ? cmd[0] : "";
                 cd(path);
             }
+        } else if (cmd[0] == RENAME_COMMAND) {
+            cmd.erase(cmd.begin());
+            if (is_valid_command(cmd, 2, 2, logger, work_context->get_work_command_fd(),
+                                 work_context->get_current_user()->get_username())) {
+                rename_file(cmd[0], cmd[1]);
+            }
         }
     }
 }
@@ -45,6 +51,7 @@ void FileHandler::handle(WebSocket *_command_channel, WebSocket *_data_channel, 
 FileHandler::FileHandler() {
     logger = LoggerFactory::getLogger("FileHandler");
     work_context = nullptr;
+    granted_file_service = GrantedFileService::getInstance();
 }
 
 void FileHandler::pwd() {
@@ -185,4 +192,39 @@ void FileHandler::cd(const std::string &_path) {
 bool FileHandler::is_path_exist(const std::string &_path) {
     struct stat st;
     return (stat(_path.c_str(), &st) == 0);
+}
+
+void FileHandler::rename_file(const std::string &_old_name, const std::string &_new_name) {
+    std::string old_name_path = work_context->get_current_user()->get_current_directory()->get_path() + "/" + _old_name;
+    if (!is_file_accessible(old_name_path)) {
+        std::string msg = std::to_string(ftp_error_code::INTERNAL_ERROR) + ": File unavailable";
+        send_error(work_context->get_work_command_fd(), msg, logger,
+                   work_context->get_current_user()->get_username());
+        return;
+    }
+    std::string current_dir(get_current_dir_name());
+    chdir(work_context->get_current_user()->get_current_directory()->get_path().c_str());
+    int ret = rename(_old_name.c_str(), _new_name.c_str());
+    chdir(current_dir.c_str());
+    if (ret == 0) {
+        std::string msg = std::to_string(ftp_error_code::RENAME_SUCCESSFUL) + ": Successfully change.";
+        send_message(work_context->get_work_command_fd(), msg, logger,
+                     work_context->get_current_user()->get_username());
+        return;
+    } else {
+        std::string msg = std::to_string(ftp_error_code::INTERNAL_ERROR) + ": Failed to rename file";
+        send_error(work_context->get_work_command_fd(), msg, logger,
+                   work_context->get_current_user()->get_username());
+        return;
+    }
+}
+
+bool FileHandler::is_file_accessible(const std::string &_path) {
+    auto granted_file = granted_file_service->find_by_path(_path);
+    if (granted_file == nullptr)
+        return true;
+    return std::any_of(work_context->get_current_user()->get_roles().begin(),
+                       work_context->get_current_user()->get_roles().end(), [&](const Role role) {
+                return granted_file->has_permission(role);
+            });
 }

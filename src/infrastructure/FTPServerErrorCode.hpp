@@ -21,6 +21,8 @@ namespace ftp_error_code {
     const int DELETE_SUCCESSFUL = 250;
     const int SEND_DATA_SUCCESSFUL = 226;
     const int CD_SUCCESSFUL = 250;
+    const int ACCESS_DENIED = 550;
+    const int RENAME_SUCCESSFUL = 250;
 }
 
 #endif //FTP_SERVER_FTPSERVERERRORCODE_HPP

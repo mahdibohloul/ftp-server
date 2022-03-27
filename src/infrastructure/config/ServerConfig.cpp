@@ -3,7 +3,6 @@
 //
 
 #include "ServerConfig.hpp"
-#include "iostream"
 
 
 ServerConfig::ServerConfig(const std::string &config_file_path) {
@@ -24,27 +23,41 @@ void ServerConfig::read_config_file() {
         auto password = user["password"].get<std::string>();
         bool admin = user["admin"].get<std::string>() == "true";
         double size = std::stod(user["size"].get<std::string>());
-        auto new_user = new User(username, password, admin, size);
+        std::vector<Role> roles = {Role::USER};
+        if (admin) {
+            roles.push_back(Role::ADMIN);
+        }
+        auto new_user = new User(username, password, size, nullptr, roles);
         this->users.emplace_back(new_user);
     }
     for (const auto &item: json_file["files"]) {
-        this->protected_files.push_back(item.get<std::string>());
+        auto filename = prepare_file_name(item.get<std::string>());
+        auto file = new GrantedFile(filename, {Role::ADMIN});
+        this->protected_files.push_back(file);
     }
     config_file.close();
+}
+
+std::string ServerConfig::prepare_file_name(const std::string &filename) {
+    std::string base_dir = get_current_dir_name();
+    if (filename[0] != '/') {
+        base_dir += "/";
+    }
+    return base_dir + filename;
 }
 
 std::list<User *> ServerConfig::get_users() {
     return this->users;
 }
 
-std::list<std::string> ServerConfig::get_protected_files() {
+std::list<GrantedFile *> ServerConfig::get_protected_files() {
     return this->protected_files;
 }
 
-int ServerConfig::get_command_channel_port() {
+int ServerConfig::get_command_channel_port() const {
     return this->command_channel_port;
 }
 
-int ServerConfig::get_data_channel_port() {
+int ServerConfig::get_data_channel_port() const {
     return this->data_channel_port;
 }

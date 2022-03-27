@@ -9,32 +9,19 @@
 #include "../models/User.hpp"
 #include "list"
 #include "map"
-//#include "../../../infrastructure/store/InMemoryStore.hpp"
-//#include "../../../infrastructure/repository/CRUDRepository.hpp"
+#include "../../../infrastructure/repository/Repository.hpp"
 
 //singleton
-class UserRepository {
+class UserRepository : public Repository {
 public:
     static UserRepository *getInstance();
 
-    User *insert(User &value);
-
-    User *update(User &value);
-
-    void remove(int id);
-
-    std::list<User> get_all();
-
     User *find_by_username(const std::string &username);
-
 
 private:
     UserRepository();
 
-    int get_next_id();
-
     static UserRepository *instance;
-    std::map<int, User> store;
 };
 
 

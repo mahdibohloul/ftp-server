@@ -29,3 +29,7 @@ Directory *Directory::get_parent() const {
 Directory *Directory::get_root() {
     return new Directory(get_current_dir_name(), nullptr);
 }
+
+bool Directory::is_root() const {
+    return parent == nullptr;
+}
