@@ -174,15 +174,11 @@ void FileHandler::cd(const std::string &_path) {
                      work_context->get_current_user()->get_username());
         return;
     } else {
-        std::cout << "path: " << path << std::endl;
         path = work_context->get_current_user()->get_current_directory()->get_path() + "/" + path;
-        std::cout << "path to change: " << path << std::endl;
         if (is_path_exist(path)) {
             if (is_path_directory(path)) {
                 work_context->get_current_user()->set_current_directory(
                         new Directory(path, work_context->get_current_user()->get_current_directory()));
-                std::cout << "changed path: " << work_context->get_current_user()->get_current_directory()->get_path()
-                          << std::endl;
                 std::string msg = std::to_string(ftp_error_code::CD_SUCCESSFUL) + ": Successfully changed.";
                 send_message(work_context->get_work_command_fd(), msg, logger,
                              work_context->get_current_user()->get_username());
@@ -266,7 +262,6 @@ void FileHandler::download(const std::string &_file_name) {
                    work_context->get_current_user()->get_username());
         return;
     }
-    std::cout << "File content: " << file_content << std::endl;
     work_context->get_current_user()->decrease_download_capacity(file_size);
     std::string msg = std::to_string(ftp_error_code::SEND_DATA_SUCCESSFUL) + ": Successful Download.";
     send_message(work_context->get_work_command_fd(), msg, logger,
