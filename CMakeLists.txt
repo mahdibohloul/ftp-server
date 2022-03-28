@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.21)
 project(ftp_server)
 set(CMAKE_CXX_STANDARD 20)
+find_package(Threads REQUIRED)
+set(CMAKE_CXX_FLAGS -pthread)
 
 add_executable(
         ftp_server

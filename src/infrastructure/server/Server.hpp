@@ -6,6 +6,8 @@
 #include "../../domain/user/services/UserService.hpp"
 #include "../socket/WebSocket.hpp"
 #include "../../domain/file/services/GrantedFileService.hpp"
+#include "../../framework/router/Router.hpp"
+#include "thread"
 
 
 class Server {
@@ -22,6 +24,8 @@ public:
 
 private:
     Server();
+
+    void handle_client(int client_command_fd, int client_data_fd);
 
     static Server *instance;
     WebSocket *data_socket;
