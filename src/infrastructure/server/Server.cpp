@@ -77,7 +77,10 @@ void Server::handle_client(int client_command_fd, int client_data_fd) {
     char buffer[BUFFER_SIZE];
     auto router = new Router(client_command_fd, client_data_fd, buffer);
     while (RECEIVING) {
-        recv(client_command_fd, buffer, BUFFER_SIZE, 0);
+        int byte = recv(client_command_fd, buffer, BUFFER_SIZE, 0);
+        if (byte <= 0) {
+            break;
+        }
         try {
             router->execute();
         } catch (QuitException &e) {
